@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author MRegra on 19/12/2022
@@ -27,6 +28,8 @@ public class ServerHandler extends Thread {
                 Operation received = (Operation) input.readObject();
                 System.out.println("-->New request received...");
                 System.out.println(received.getOperationType());
+                System.out.println("File Name: " + received.getFileName());
+                System.out.println("Contents: " + new String(received.getFileContents(), StandardCharsets.UTF_8));
 
             } catch (IOException e) {
                 break;

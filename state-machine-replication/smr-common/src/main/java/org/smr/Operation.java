@@ -9,10 +9,14 @@ public class Operation implements Serializable {
 
     private String operationType;
     private Client client;
+    private byte[] fileContents;
+    private String fileName;
 
-    public Operation(String operationType, Client client) {
+    public Operation(String operationType, Client client, byte[] fileContents, String fileName) {
         this.operationType = operationType;
         this.client = client;
+        this.fileName = fileName;
+        this.fileContents = fileContents;
     }
 
     public String getOperationType() {
@@ -29,6 +33,22 @@ public class Operation implements Serializable {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public byte[] getFileContents() {
+        return fileContents;
+    }
+
+    public void setFileContents(byte[] fileContents) {
+        this.fileContents = fileContents;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     @Override

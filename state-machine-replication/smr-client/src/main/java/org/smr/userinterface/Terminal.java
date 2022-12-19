@@ -27,7 +27,7 @@ public class Terminal {
             BufferedReader reader = getUserInput();
             try {
                 operation = reader.readLine();
-                TerminalOptions.processOperation(operation, output);
+                TerminalOptions.processOperation(operation, output, reader);
             } catch (IOException e) {
                 System.out.println("Something went wrong. \nException: " + e);
             }
