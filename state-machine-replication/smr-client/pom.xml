@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.smr</groupId>
-    <artifactId>smr-server</artifactId>
+    <artifactId>smr-client</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -13,7 +13,7 @@
         <maven.compiler.target>19</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <mainclass>org.smr.ServerMain</mainclass>
+        <mainclass>org.smr.ClientMain</mainclass>
     </properties>
     <build>
         <plugins>
@@ -29,7 +29,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>org.smr.ServerMain</mainClass>
+                    <mainClass>org.smr.ClientMain</mainClass>
                     <executable>java</executable>
                 </configuration>
             </plugin>
