@@ -1,8 +1,8 @@
 package org.smr;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
@@ -11,25 +11,27 @@ import java.net.Socket;
 public class ServerHandler extends Thread {
 
     private final Socket socket;
-    private final DataInputStream dis;
-    private final DataOutputStream dos;
+    private final ObjectInputStream input;
+    private final ObjectOutputStream output;
 
-    public ServerHandler(Socket socket, DataInputStream dis, DataOutputStream dos) {
+    public ServerHandler(Socket socket, ObjectInputStream input, ObjectOutputStream output) {
         this.socket = socket;
-        this.dis = dis;
-        this.dos = dos;
+        this.input = input;
+        this.output = output;
     }
 
     @Override
     public void run() {
         while (true) {
             try {
-                String received = dis.readUTF();
+                Operation received = (Operation) input.readObject();
                 System.out.println("-->New request received...");
-                System.out.println(received);
+                System.out.println(received.getOperationType());
 
             } catch (IOException e) {
                 break;
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
         try {
@@ -43,12 +45,12 @@ public class ServerHandler extends Thread {
 
     }
 
-    private void closeConnections() throws IOException {
+    public void closeConnections() throws IOException {
         this.socket.close();
         try {
             // closing resources
-            this.dis.close();
-            this.dos.close();
+            this.input.close();
+            this.output.close();
 
         } catch (IOException e) {
             System.out.println("IOException Message: " + e.getMessage());

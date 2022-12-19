@@ -1,8 +1,6 @@
 package org.smr;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.Socket;
 import java.net.ServerSocket;
 
@@ -24,10 +22,10 @@ public class ServerMain {
                 System.out.println("Connection received from IP: " + socket.getInetAddress().getHostAddress() +
                         " and hostname: " + socket.getInetAddress().getHostName());
 
-                DataInputStream dis = new DataInputStream(socket.getInputStream());
-                DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+                ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
 
-                Thread t = new ServerHandler(socket, dis, dos);
+                Thread t = new ServerHandler(socket, input, out);
 
                 // start the thread
                 t.start();

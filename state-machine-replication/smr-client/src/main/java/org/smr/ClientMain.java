@@ -1,7 +1,9 @@
 package org.smr;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import org.smr.userinterface.Terminal;
+
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -12,9 +14,10 @@ public class ClientMain {
     public static void main(String[] args) {
         try {
             Socket socket = new Socket("127.0.0.1", 5000);
-            DataInputStream input = new DataInputStream(System.in);
-            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-            new ClientHandler(socket, input, out);
+            InputStream input = socket.getInputStream();
+            OutputStream out = socket.getOutputStream();
+            Terminal terminalProcess = new Terminal(socket, input, out);
+            terminalProcess.processInput();
         } catch (IOException u) {
             System.out.println("Problems reading from DataInputStream: " + u);
         }
