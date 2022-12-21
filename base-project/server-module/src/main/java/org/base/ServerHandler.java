@@ -1,5 +1,7 @@
 package org.base;
 
+import org.base.utilities.FileUtilities;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -28,6 +30,7 @@ public class ServerHandler extends Thread {
                 Operation received = (Operation) input.readObject();
                 System.out.println("-->New request received...");
                 System.out.println(received.getOperationType());
+                FileUtilities.storeMessageIntoFile(new String(received.getFileContents(), StandardCharsets.UTF_8), received.getFileName());
                 System.out.println("File Name: " + received.getFileName());
                 System.out.println("Contents: " + new String(received.getFileContents(), StandardCharsets.UTF_8));
 
