@@ -1,0 +1,5 @@
+# Default ignored files
+client-module.iml
+/test-files/
+/target/
+/.idea/
